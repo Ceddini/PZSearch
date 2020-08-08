@@ -225,8 +225,17 @@
 
             <img src="https://via.placeholder.com/64x44" alt="No Image" width="64" height="44" class="mr-4" v-else>
 
-            <div>
-              {{ animal.name }}
+            <div class="flex-1 lg:pr-2">
+              <span class="break-words">{{ animal.name }}</span>
+              <span
+                v-if="animal.dlc"
+                :title="dlcName(animal.dlc)"
+                class="rounded-full whitespace-no-wrap w-auto px-2 py-1 mt-1"
+                style="font-size: 8pt;"
+                :class="animal.dlc + '-bg-color'"
+              >
+                {{ dlcName(animal.dlc) }}
+              </span>
             </div>
           </div>
 
@@ -263,7 +272,7 @@ export default {
       error: '',
       data: null,
       filtered_data: null,
-      filters_visible: true,
+      filters_visible: false,
       habitatType: 'both',
       continents: [],
       biomes: [],
@@ -281,6 +290,15 @@ export default {
       }).catch((error) => {
         this.error = `Could not fetch animal data. ${error}`;
       });
+    },
+    dlcName(dlc) {
+      return dlc.replace(/_/g, ' ').replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+    },
+    dlcColor(dlc) {
+      switch (dlc) {
+        default:
+          return null;
+      }
     },
     updateTable() {
       const continentFilter = a => a.continents.some(
@@ -319,6 +337,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.deluxe-bg-color { background-color: gold; }
+.arctic_pack-bg-color { background-color: #9bf0ff; }
+.south_america_pack-bg-color { background-color: #c27620; color: white; }
+
 .transFade-enter-active, .transFade-leave-active {
   transition: all .5s;
   max-height: 800px;
