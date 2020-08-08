@@ -42,7 +42,7 @@
                            v-model="continents"
                            @change="updateTable"
                     >
-                    Europe
+                    Central America
                   </label>
                   <label for="europe" class="mb-2">
                     <input type="checkbox"
