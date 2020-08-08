@@ -4,6 +4,10 @@
   "description": "Planet Zoo Search",
   "author": "Cedric Schmitt <ceddini@users.noreply.github.com>",
   "private": true,
+  "repository": {
+	  "type": "git",
+	  "url": "git://github.com/Ceddini/PZSearch.git"
+	},
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",

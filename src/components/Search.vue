@@ -34,6 +34,16 @@
                     >
                     Asia
                   </label>
+                  <label for="central_america" class="mb-2">
+                    <input type="checkbox"
+                           id="central_america"
+                           class=""
+                           value="central_america"
+                           v-model="continents"
+                           @change="updateTable"
+                    >
+                    Europe
+                  </label>
                   <label for="europe" class="mb-2">
                     <input type="checkbox"
                            id="europe"
