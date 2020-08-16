@@ -210,54 +210,11 @@
 
         <div v-if="data === null">Loading...</div>
 
-        <div v-else v-for="(animal, index) in filtered_data" class="flex flex-wrap items-center" v-bind:class="{ 'mb-3': index !== filtered_data.length - 1 }" :key="animal.id">
-
-          <div class="w-full sm:mb-2 lg:mb-0 lg:w-1/3 flex flex-wrap items-center">
-
-            <img
-              :src="animal.img"
-              alt=""
-              width="64"
-              height="44"
-              class="mr-4"
-              v-if="animal.img"
-            >
-
-            <img src="https://via.placeholder.com/64x44" alt="No Image" width="64" height="44" class="mr-4" v-else>
-
-            <div class="flex-1 lg:pr-2">
-              <span class="break-words">{{ animal.name }}</span>
-              <span
-                v-if="animal.dlc"
-                :title="dlcName(animal.dlc)"
-                class="rounded-full whitespace-no-wrap w-auto px-2 py-1 mt-1"
-                style="font-size: 8pt;"
-                :class="animal.dlc + '-bg-color'"
-              >
-                {{ dlcName(animal.dlc) }}
-              </span>
-            </div>
-          </div>
-
-          <div class="w-full lg:w-2/3 border-b border-gray-300 md:border-0 flex flex-wrap pb-2 lg:pb-0">
-            <div class="w-full md:w-1/2 flex flex-col flex-wrap">
-              <div>
-                <span class="text-gray-pz font-bold">Continents: </span>
-                {{ animal.continents.join(', ') }}
-              </div>
-              <div>
-                <span class="text-gray-pz font-bold">Biomes: </span>
-                {{ animal.biomes.join(', ') }}
-              </div>
-            </div>
-
-            <div class="w-full md:w-1/2 flex flex-wrap">
-              {{ animal.is_habitat ? 'Habitat' : 'Exhibit' }}
-            </div>
-          </div>
+        <div v-else>
+          <Animal v-for="(animal, index) in filtered_data" v-bind:class="{ 'mb-3': index !== filtered_data.length - 1 }" :animal="animal" :key="animal.id" />
         </div>
-      </div>
 
+      </div>
       <div class="bg-white md:rounded shadow mt-4 p-3" v-else>{{ error }}</div>
 
     </div>
@@ -265,8 +222,11 @@
 </template>
 
 <script>
+import Animal from './Animal';
+
 export default {
   name: 'search',
+  components: { Animal },
   data() {
     return {
       error: '',
@@ -290,15 +250,6 @@ export default {
       }).catch((error) => {
         this.error = `Could not fetch animal data. ${error}`;
       });
-    },
-    dlcName(dlc) {
-      return dlc.replace(/_/g, ' ').replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-    },
-    dlcColor(dlc) {
-      switch (dlc) {
-        default:
-          return null;
-      }
     },
     updateTable() {
       const continentFilter = a => a.continents.some(
@@ -336,11 +287,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.deluxe-bg-color { background-color: gold; }
-.arctic_pack-bg-color { background-color: #9bf0ff; }
-.south_america_pack-bg-color { background-color: #c27620; color: white; }
-
+<style scoped>
 .transFade-enter-active, .transFade-leave-active {
   transition: all .5s;
   max-height: 800px;
@@ -355,16 +302,5 @@ export default {
 }
 .transFade-leave-active {
   transform: scale(0.98);
-}
-.fadeHeight-enter-active,
-.fadeHeight-leave-active {
-  transition: all .5s;
-  max-height: 800px;
-}
-.fadeHeight-enter,
-.fadeHeight-leave-to
-{
-  opacity: 0;
-  max-height: 0;
 }
 </style>
