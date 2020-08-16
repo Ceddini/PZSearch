@@ -10,10 +10,15 @@
       <router-view></router-view>
     </main>
 
-    <footer class="fixed bottom-0 left-0 right-0 p-2 bg-stripe text-white">
-      This site uses information and images from the
+    <footer class="fixed bottom-0 left-0 right-0 p-2 bg-stripe text-white flex flex-wrap">
+      <span class="w-full mb-2 md:w-auto md:mb-0 md:mr-2 text-xs">This site uses information and images from the
       <a href="https://planetzoo.fandom.com/wiki/Planet_Zoo_Wiki" target="_blank"
-         class="text-gray-600 hover:text-blue-400">Planet Zoo Fandom Wiki</a>. © Cedric Schmitt 2020
+         class="text-gray-600 hover:text-blue-400">Planet Zoo Fandom Wiki</a>.
+      </span>
+
+      <span class="w-full mb-2 md:w-auto md:mb-0 md:mr-2 text-xs">© 2020 Cedric Schmitt.</span>
+
+      <span class="w-full md:w-auto text-xs">I am in no way affiliated to Planet Zoo or Frontier Developments.</span>
     </footer>
   </div>
 </template>
