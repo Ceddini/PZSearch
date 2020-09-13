@@ -74,7 +74,7 @@
                     >
                     Oceania
                   </label>
-                  <label for="south_america">
+                  <label for="south_america" class="mb-2">
                     <input type="checkbox"
                            id="south_america"
                            class=""
@@ -83,6 +83,16 @@
                            @change="updateTable"
                     >
                     South America
+                  </label>
+                  <label for="south_east_asia">
+                    <input type="checkbox"
+                           id="south_east_asia"
+                           class=""
+                           value="south_east_asia"
+                           v-model="continents"
+                           @change="updateTable"
+                    >
+                    South East Asia
                   </label>
                 </div>
               </div>
@@ -211,7 +221,7 @@
         <div v-if="data === null">Loading...</div>
 
         <div v-else>
-          <Animal v-for="(animal, index) in filtered_data" v-bind:class="{ 'mb-3': index !== filtered_data.length - 1 }" :animal="animal" :key="animal.id" />
+          <Animal v-for="(animal, index) in filtered_data" v-bind:class="{ 'mb-3': index !== filtered_data.length - 1 }" :animal="animal" :key="animal.id" :dlc="getDLC(animal.dlc)" />
         </div>
 
       </div>
@@ -231,6 +241,7 @@ export default {
     return {
       error: '',
       data: null,
+      dlcs: null,
       filtered_data: null,
       filters_visible: false,
       habitatType: 'both',
@@ -239,6 +250,25 @@ export default {
     };
   },
   methods: {
+    fetchDLCs() {
+      this.$http.get('dlcs').then((response) => {
+        if (response.status !== 200) {
+          this.error = `Could not fetch dlc data. Error Code ${response.status}`;
+        } else {
+          this.dlcs = response.data;
+        }
+      }).catch((error) => {
+        this.error = `Could not fetch dlc data. ${error}`;
+      });
+    },
+    getDLC(dlc) {
+      const dlcs = this.dlcs.filter(i => i.id === dlc);
+      if (dlcs.length > 0) {
+        return dlcs[0];
+      }
+
+      return null;
+    },
     fetchAnimals() {
       this.$http.get('animals').then((response) => {
         if (response.status !== 200) {
@@ -247,20 +277,21 @@ export default {
           this.data = response.data;
           this.filtered_data = this.data;
         }
+        this.updateTable();
       }).catch((error) => {
         this.error = `Could not fetch animal data. ${error}`;
       });
     },
     updateTable() {
       const continentFilter = a => a.continents.some(
-        c => this.continents.includes(c.toLowerCase().replace(' ', '_')));
+        c => this.continents.includes(c.toLowerCase().replaceAll(' ', '_')));
 
       const biomeFilter = a => a.biomes.some(
-        b => this.biomes.includes(b.toLowerCase().replace(' ', '_')));
+        b => this.biomes.includes(b.toLowerCase().replaceAll(' ', '_')));
 
       const allFilter = a => a.continents.some(
-        c => this.continents.includes(c.toLowerCase().replace(' ', '_'))) && a.biomes.some(
-        b => this.biomes.includes(b.toLowerCase().replace(' ', '_')));
+        c => this.continents.includes(c.toLowerCase().replaceAll(' ', '_'))) && a.biomes.some(
+        b => this.biomes.includes(b.toLowerCase().replaceAll(' ', '_')));
 
       let tempData = null;
 
@@ -273,6 +304,11 @@ export default {
       } else {
         tempData = this.data;
       }
+      tempData.sort((a, b) => {
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+      });
       if (this.habitatType !== 'both') {
         this.filtered_data = tempData.filter(a => a.is_habitat === (this.habitatType === 'habitat'));
       } else {
@@ -281,6 +317,7 @@ export default {
     },
   },
   mounted() {
+    this.fetchDLCs();
     this.fetchAnimals();
   },
 };

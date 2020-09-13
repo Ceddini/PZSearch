@@ -17,13 +17,13 @@
         <div class="flex-1 lg:pr-2">
           <span class="break-words">{{ animal.name }}</span>
           <span
-            v-if="animal.dlc"
-            :title="dlcName(animal.dlc)"
+            v-if="dlc"
+            :title="dlc.name"
             class="rounded-full whitespace-no-wrap w-auto px-2 py-1 mt-1"
             style="font-size: 8pt;"
-            :class="animal.dlc + '-bg-color'"
+            v-bind:style="{ backgroundColor: dlc.color, color: dlc.text}"
           >
-                  {{ dlcName(animal.dlc) }}
+                  {{ dlc.name }}
                 </span>
         </div>
       </div>
@@ -74,7 +74,7 @@
 <script>
 export default {
   name: 'Animal',
-  props: ['animal'],
+  props: ['animal', 'dlc'],
   data() {
     return {
       expanded: false,
