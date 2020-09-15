@@ -1,7 +1,15 @@
 <template>
   <div id="app" class="mb-12">
-    <header class="pz-title bg-green-pz">
-      <span>PZSearch</span>
+    <header class="pz-title bg-green-pz flex flex-col items-center md:flex md:flex-row md:justify-between p-2">
+      <span class="mb-2 md:mb-0">PZSearch</span>
+      <div class="flex items-center">
+        <a href="https://github.com/Ceddini/PZSearch"
+          class="border text-sm border-gray-pz text-gray-pz px-4 py-2 hover:bg-gray-pz hover:text-white transition-colors duration-150 rounded mr-2"
+        >GitHub</a>
+        <a href="https://github.com/Ceddini/PZSearch-API"
+           class="border text-sm border-gray-pz text-gray-pz px-4 py-2 hover:bg-gray-pz hover:text-white transition-colors duration-150 rounded"
+        >GitHub (API)</a>
+      </div>
     </header>
     <div class="pz-heading bg-stripe text-center">
       Planet Zoo Search
@@ -44,7 +52,7 @@ body {
   font-size: 18pt;
   font-weight: bold;
   color: white;
-  padding: 20px;
+  padding: 16px;
 }
 
 .pz-heading {
@@ -65,6 +73,12 @@ body {
   background-color: #139b6d;
 }
 .bg-gray-pz {
+  background-color: #072736;
+}
+.border-gray-pz {
+  border-color: #072736;
+}
+.hover\:bg-gray-pz:hover {
   background-color: #072736;
 }
 .text-gray-pz {
