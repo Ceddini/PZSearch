@@ -1,21 +1,17 @@
-# pzsearch
+# PZSearch
 
 > Planet Zoo Search
 
-## Build Setup
+A simple to use application, allowing every animal lover to quickly find the perfect animal for given factors.
 
-``` bash
-# install dependencies
-npm install
+Current Filters are:
+- Continent
+- Biome
+- Habitat Type (Habitat / Exhibit)
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Future updates will include filters for:
+- DLCs
+- Advanced Filters:
+  - Area requirement
+  - Water requirement
+  - Needs to be climb proof
