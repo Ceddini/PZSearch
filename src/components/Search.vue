@@ -284,14 +284,14 @@ export default {
     },
     updateTable() {
       const continentFilter = a => a.continents.some(
-        c => this.continents.includes(c.toLowerCase().replaceAll(' ', '_')));
+        c => this.continents.includes(c.toLowerCase().replace(/ /g, '_')));
 
       const biomeFilter = a => a.biomes.some(
-        b => this.biomes.includes(b.toLowerCase().replaceAll(' ', '_')));
+        b => this.biomes.includes(b.toLowerCase().replace(/ /g, '_')));
 
       const allFilter = a => a.continents.some(
-        c => this.continents.includes(c.toLowerCase().replaceAll(' ', '_'))) && a.biomes.some(
-        b => this.biomes.includes(b.toLowerCase().replaceAll(' ', '_')));
+        c => this.continents.includes(c.toLowerCase().replace(/ /g, '_'))) && a.biomes.some(
+        b => this.biomes.includes(b.toLowerCase().replace(/ /g, '_')));
 
       let tempData = null;
 
